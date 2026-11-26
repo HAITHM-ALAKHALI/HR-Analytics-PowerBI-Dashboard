@@ -355,7 +355,7 @@ table 'HR_Analytics-4 (2)'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("D:\My Works\Projects\Power BI\1\HR_Analytics-4.csv"),[Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("D:\My Works\Projects\Power BI\HR-Analytics-PowerBI-Dashboard\HR_Analytics-4.csv"),[Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EmpID", type text}, {"Age", Int64.Type}, {"AgeGroup", type text}, {"Attrition", type text}, {"BusinessTravel", type text}, {"DailyRate", Int64.Type}, {"Department", type text}, {"DistanceFromHome(KM)", Int64.Type}, {"Education", Int64.Type}, {"EducationField", type text}, {"EmployeeCount", Int64.Type}, {"EmployeeNumber", Int64.Type}, {"EnvironmentSatisfaction", Int64.Type}, {"Gender", type text}, {"JobInvolvement", Int64.Type}, {"JobLevel", Int64.Type}, {"JobRole", type text}, {"JobSatisfaction", Int64.Type}, {"MaritalStatus", type text}, {"MonthlyIncome", Int64.Type}, {"SalarySlab", type text}, {"HourlyRate", type number}, {"NumCompaniesWorked", Int64.Type}, {"Over18", type text}, {"OverTime", type text}, {"SalaryHike %", Int64.Type}, {"PerformanceRating", Int64.Type}, {"RelationshipSatisfaction", Int64.Type}, {"StandardWorkingHours", Int64.Type}, {"StockOptionLevel", Int64.Type}, {"TotalExperience(Years)", Int64.Type}, {"TrainingsLastYear", Int64.Type}, {"WorkLifeBalance", Int64.Type}, {"YearsatCompany", Int64.Type}, {"YearsinCurrentRole", Int64.Type}, {"YearsSincePromotion", Int64.Type}, {"YearsWithCurrManager", Int64.Type}}),
 				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"YearsWithCurrManager", Order.Ascending}}),
@@ -371,5 +371,5 @@ table 'HR_Analytics-4 (2)'
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 
