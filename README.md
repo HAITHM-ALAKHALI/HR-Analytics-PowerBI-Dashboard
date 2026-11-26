@@ -4,15 +4,15 @@
 [![DAX](https://img.shields.io/badge/DAX-Data_Analysis_Expressions-0078D4?style=for-the-badge)](https://learn.microsoft.com/en-us/dax/)
 [![Power Query](https://img.shields.io/badge/Power_Query-M_Language-2CA5E0?style=for-the-badge)](https://learn.microsoft.com/en-us/power-query/)
 
-An interactive **Human Resources Analytics Dashboard** developed in **Power BI Desktop** to analyze employee turnover, workforce demographics, salary distributions, and organizational retention drivers.
+An interactive **Human Resources Analytics Dashboard** developed in **Power BI Desktop** to present descriptive observations of employee turnover, demographic distributions, compensation tiers, and workforce characteristics.
 
 ---
 
 ## 1. Project Overview
 
-Employee attrition poses significant operational and financial challenges for modern organizations. This project provides HR leadership and department managers with an exploratory BI interface to evaluate key workforce metrics, identify flight-risk segments, and investigate the factors influencing employee departures.
+This project provides an exploratory business intelligence dashboard built to examine historical HR records. It allows users to review aggregate workforce figures, inspect demographic and departmental breakdowns, and observe attrition counts across various recorded attributes.
 
-The dashboard integrates demographic attributes, compensation tiers, departmental distributions, job roles, and satisfaction ratings into a centralized analytical view.
+The report consolidates demographic information, salary tiers, departmental headcounts, job roles, and employee-reported satisfaction ratings into a single analytical canvas.
 
 ---
 
@@ -24,107 +24,109 @@ The dashboard integrates demographic attributes, compensation tiers, departmenta
 
 ## 3. Key Performance Indicators (KPIs)
 
-The top KPI ribbon provides an executive-level summary of baseline workforce metrics:
+The top KPI ribbon displays high-level workforce metrics calculated within the report:
 
-| KPI Card | Displayed Value | Verified Calculation / Definition | Analytical Purpose |
+| KPI Card | Displayed Value | Verified Calculation / Definition | Metric Description |
 | :--- | :---: | :--- | :--- |
-| **Total Employees** | `1.417K` | `Count of EmpID` (1,417 records loaded; 1,403 distinct employee IDs) | Overall workforce headcount under analysis in the report model. |
-| **Active Employees** | `1.186K` | `Count of EmployeeCount` with filter `Attrition = "No"` (1,186 employees) | Current active workforce retained within the organization. |
-| **Attrition Count** | `231` | `Sum of AttritionCount` (`Attrition = "Yes"`) | Cumulative count of employees who have separated from the company. |
-| **Attrition Rate %** | `16.3%` | `[Attrition Rate %] = DIVIDE(SUM(AttritionCount), SUM(EmployeeCount), 0)` | Overall organization-wide turnover percentage (231 / 1,417). |
-| **Average Age** | `36.94` | `Average of Age` | Mean age of the workforce across all departments. |
-| **Avg Experience** | `7.04` | `Average of YearsatCompany` (7.04 years at company) | Mean company tenure across employees (note: evaluates company tenure). |
+| **Total Employees** | `1.417K` | `Count of EmpID` (1,417 rows in model; 1,403 distinct employee IDs) | Total employee records loaded into the reporting model. |
+| **Active Employees** | `1.186K` | `Count of EmployeeCount` with visual filter `Attrition = "No"` (1,186 rows) | Count of active employee records currently retained in the dataset. |
+| **Attrition Count** | `231` | `Sum of AttritionCount` (`Attrition = "Yes"`) | Total count of recorded departures in the dataset. |
+| **Attrition Rate %** | `16.3%` | `[Attrition Rate %] = DIVIDE(SUM(AttritionCount), SUM(EmployeeCount), 0)` | Overall departure percentage across loaded records (231 / 1,417). |
+| **Average Age** | `36.94` | `Average of Age` | Arithmetic mean of recorded employee ages. |
+| **Avg Experience** | `7.04` | `Average of YearsatCompany` (7.04 years) | Arithmetic mean of recorded tenure at the company (evaluates `YearsatCompany`). |
 
 ---
 
 ## 4. Dashboard Features & Visual Layout
 
-The report incorporates six core analytical visuals and two interactive slicers to facilitate multi-dimensional cross-filtering:
+The report page includes interactive slicers and six analytical visuals:
 
 ### Interactive Slicers
-- **Age Group Slicer (Top Ribbon):** Allows quick segment filtering across defined cohorts: `18-25`, `26-35`, `36-45`, `46-55`, and `55+`.
-- **Department Slicer (Left Panel):** Enables dedicated departmental drill-downs across `Administration`, `Finance`, `Human Resources`, `IT`, `Marketing`, `Operations`, and `Sales`.
+- **Age Group Slicer (Top Ribbon):** Filters data across five categorical age brackets: `18-25`, `26-35`, `36-45`, `46-55`, and `55+`.
+- **Department Slicer (Left Panel):** Filters data by organizational unit: `Administration`, `Finance`, `Human Resources`, `IT`, `Marketing`, `Operations`, and `Sales`.
 
 ### Visual Analytics
 1. **Attrition by Department (Donut Chart):**
-   - *Metric:* `Sum of AttritionCount` by `Department`.
-   - *Breakdown:* Administration (84 leavers, 36.4%), Sales (52 leavers, 22.5%), Operations (43 leavers, 18.6%), IT (30 leavers, 13.0%), Marketing (10 leavers, 4.3%), Human Resources (9 leavers, 3.9%), and Finance (3 leavers, 1.3%).
-   - *Purpose:* Illustrates the departmental share of total company departures.
+   - *Plotted Metric:* `Sum of AttritionCount` categorized by `Department`.
+   - *Observed Breakdown:* Administration (84 departures, 36.4%), Sales (52 departures, 22.5%), Operations (43 departures, 18.6%), IT (30 departures, 13.0%), Marketing (10 departures, 4.3%), Human Resources (9 departures, 3.9%), and Finance (3 departures, 1.3%).
+   - *Design Focus:* Illustrates the distribution of total company departures across departments.
 
 2. **Attrition by Salary Slab (Clustered Bar Chart):**
-   - *Metric:* Employee counts by `SalarySlab` categorized by `Attrition` (`No` vs. `Yes`).
-   - *Categories:* `0-3 LPA` (61 leavers), `3-6 LPA` (49 leavers), `6-10 LPA` (73 leavers), and `10+ LPA` (48 leavers).
-   - *Purpose:* Highlights turnover volume across compensation bands.
+   - *Plotted Metric:* Headcount by `SalarySlab` grouped by `Attrition` (`No` vs. `Yes`).
+   - *Observed Values:* `0-3 LPA` (299 No, 61 Yes), `3-6 LPA` (293 No, 49 Yes), `6-10 LPA` (399 No, 73 Yes), and `10+ LPA` (195 No, 48 Yes).
+   - *Design Focus:* Displays the distribution of active and departed employees across defined compensation brackets.
 
 3. **Attrition by Job Role & Job Satisfaction (Matrix Table):**
-   - *Metric:* Cross-tabulation of `Sum of AttritionCount` across 9 `JobRole` categories and 4 `JobSatisfaction` levels (1 = Low to 4 = Very High).
-   - *Formatting:* Conditional linear gradient heat-map applied to identify concentrated turnover pockets.
-   - *Purpose:* Pinpoints specific roles where dissatisfaction correlates with employee exit volume.
+   - *Plotted Metric:* Cross-tabulation of `Sum of AttritionCount` across nine `JobRole` categories and four numerical `JobSatisfaction` levels (1 to 4).
+   - *Formatting:* Conditional linear gradient color scale applied to cell backgrounds.
+   - *Design Focus:* Displays departure counts across job roles alongside recorded survey satisfaction ratings.
 
 4. **Attrition Rate by Age Group (Clustered Bar Chart):**
-   - *Metric:* DAX Measure `[Attrition Rate by Age Group]` plotted by `AgeGroup`.
-   - *Results:* `18-25` (37.6%), `26-35` (18.9%), `55+` (18.2%), `46-55` (12.2%), and `36-45` (9.2%).
-   - *Purpose:* Evaluates cohort-specific turnover risk, demonstrating elevated turnover among younger professionals.
+   - *Plotted Metric:* DAX Measure `[Attrition Rate by Age Group]` plotted by `AgeGroup`.
+   - *Observed Values:* `18-25` (37.6%), `26-35` (18.9%), `55+` (18.2%), `46-55` (12.2%), and `36-45` (9.2%).
+   - *Design Focus:* Displays the calculated attrition percentage within each age category.
 
 5. **Attrition Trend by Experience (Area Chart):**
-   - *Metric:* `Sum of AttritionCount` plotted against `TotalExperience(Years)`.
-   - *Purpose:* Visualizes departures across professional career duration (0 to 40 years), highlighting attrition spikes during early career years (0–2 years of experience).
+   - *Plotted Metric:* `Sum of AttritionCount` plotted across `TotalExperience(Years)`.
+   - *Observed Values:* Departures span from 0 to 40 years of total experience, with the single highest count observed at 1 year of experience (40 departures).
+   - *Design Focus:* Plots departure counts across discrete values of total professional experience.
 
 6. **Department-Wise Employee Count (Funnel Chart):**
-   - *Metric:* `Count of EmpID` by `Department`.
-   - *Headcount:* Operations (512), Administration (406), Sales (207), IT (166), Marketing (64), Human Resources (39), Finance (23).
-   - *Purpose:* Displays comparative departmental sizing across the organization.
+   - *Plotted Metric:* `Count of EmpID` categorized by `Department`.
+   - *Observed Values:* Operations (512), Administration (406), Sales (207), IT (166), Marketing (64), Human Resources (39), Finance (23).
+   - *Design Focus:* Shows comparative employee headcounts by department.
 
 ---
 
 ## 5. Dataset Information
 
-The dashboard is powered by the local dataset `HR_Analytics-4.csv`:
+The dashboard connects to a flat CSV file:
 
 - **Filename:** `HR_Analytics-4.csv`
 - **Initial Raw Records:** 1,480 rows, 37 columns.
-- **Data Ingestion & Cleaning:**
-  - **Missing Values Removal:** 61 rows were excluded during data transformation due to null/blank entries in the `YearsWithCurrManager` field.
-  - **Duplicate Removal:** 2 exact duplicate rows across all 37 attributes were removed via `Table.Distinct`.
-  - **Final Model Records:** **1,417 rows** loaded into the semantic model.
-  - *Data Integrity Note:* While exact duplicate records across all 37 columns were eliminated, 14 `EmpID` identifiers appear twice where minor non-key attribute variations existed (representing 1,403 unique employee IDs across 1,417 loaded rows).
+- **Data Transformations Applied:**
+  - **Null Value Filtering:** 61 rows were removed because they contained blank/null values in the `YearsWithCurrManager` field.
+  - **Duplicate Removal:** 2 exact duplicate rows (identical across all 37 columns) were removed via `Table.Distinct`.
+  - **Loaded Model Records:** **1,417 rows** in the final semantic model.
+  - **Distinct Identifier Count:** 1,403 unique `EmpID` values exist in the loaded model. 14 `EmpID` identifiers appear twice where minor non-key field variations existed across rows.
 
 ---
 
 ## 6. Data Preparation (Power Query ETL)
 
-Data transformation was executed within Power Query using the M formula language. The transformations were applied in the following verified sequence:
+The data transformation steps recorded in the table's M partition definition executed in the following order:
 
 ```powerquery
+// Excerpt from table definition: HR_Analytics-4 (2).tmdl
 let
-    // 1. Ingest raw CSV data
-    Source = Csv.Document(File.Contents("D:\My Works\Projects\Power BI\HR-Analytics-PowerBI-Dashboard\HR_Analytics-4.csv"), [Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+    // 1. Ingest raw CSV (path must be configured to the local repository file location)
+    Source = Csv.Document(File.Contents("<Path-To-Repository>\HR_Analytics-4.csv"), [Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None]),
     
     // 2. Promote first row to column headers
     #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
     
-    // 3. Cast initial data types across all 37 attributes
+    // 3. Transform column data types across all 37 attributes
     #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {...}),
     
-    // 4. Sort ascending on YearsWithCurrManager (groups nulls at top)
+    // 4. Sort ascending by YearsWithCurrManager (places null/empty values at the top)
     #"Sorted Rows" = Table.Sort(#"Changed Type", {{"YearsWithCurrManager", Order.Ascending}}),
     
-    // 5. Remove the top 61 rows containing null YearsWithCurrManager values
+    // 5. Remove the first 61 rows (removes null YearsWithCurrManager records)
     #"Removed Top Rows" = Table.Skip(#"Sorted Rows", 61),
     
-    // 6. Deduplicate exact matching rows across all columns
+    // 6. Deduplicate exact matching rows across all 37 columns
     #"Removed Duplicates" = Table.Distinct(#"Removed Top Rows"),
     
-    // 7. Standardize textual values in BusinessTravel ("Travel_Rarely" -> "TravelRarely")
+    // 7. Replace text in BusinessTravel ("Travel_Rarely" -> "TravelRarely")
     #"Replaced Value" = Table.ReplaceValue(#"Removed Duplicates", "Travel_Rarely", "TravelRarely", Replacer.ReplaceText, {"BusinessTravel"}),
     
-    // 8. Row selection step
+    // 8. Filter rows step
     #"Filtered Rows" = Table.SelectRows(#"Replaced Value", each true),
     
-    // 9. Re-verify explicit column data types
+    // 9. Re-verify column data types
     #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows", {...}),
     
-    // 10. Add conditional indicator column for attrition events (1 for Yes, 0 for No)
+    // 10. Add conditional indicator column for attrition (1 if Yes, 0 if No)
     #"Added Conditional Column" = Table.AddColumn(#"Changed Type1", "AttntonCount", each if [Attrition] = "Yes" then 1 else 0),
     
     // 11. Rename conditional column to standard naming
@@ -133,11 +135,13 @@ in
     #"Renamed Columns"
 ```
 
+*Note: Column type lists in steps 3 and 9 are abbreviated above for clarity. Full definitions are accessible in the semantic model files.*
+
 ---
 
 ## 7. DAX Measures
 
-The semantic model contains the following verified DAX expressions:
+The semantic model contains two explicit DAX measures:
 
 ### 1. Overall Attrition Rate %
 ```dax
@@ -148,7 +152,7 @@ DIVIDE(
     0
 )
 ```
-*Calculates overall turnover percentage formatted as `0.0%`.*
+*Calculates the overall departure percentage across filtered rows, formatted as `0.0%`.*
 
 ### 2. Attrition Rate by Age Group
 ```dax
@@ -162,17 +166,17 @@ DIVIDE(
     0
 )
 ```
-*Evaluates within-bracket attrition percentage formatted as `0.0%` when evaluated against the `AgeGroup` visual axis.*
+*Evaluates the within-context attrition percentage, formatted as `0.0%`.*
 
 ---
 
 ## 8. Tools & Technologies
 
-- **Business Intelligence Platform:** Microsoft Power BI Desktop
-- **Data Modeling & Storage:** Tabular Model Definition Language (TMDL), Power BI Project (`.pbip`) format
-- **ETL Architecture:** Power Query (M Language)
-- **Analytical Calculations:** DAX (Data Analysis Expressions)
-- **Data Source:** CSV Flat File (`UTF-8`)
+- **Business Intelligence:** Microsoft Power BI Desktop
+- **Data Modeling:** Power BI Project (`.pbip`), Tabular Model Definition Language (TMDL)
+- **ETL:** Power Query (M Language)
+- **Calculations:** DAX (Data Analysis Expressions)
+- **Data Storage:** Flat CSV (`UTF-8`)
 
 ---
 
@@ -181,37 +185,37 @@ DIVIDE(
 ```text
 HR-Analytics-PowerBI-Dashboard/
 │
-├── .gitignore                                      # Git ignore rules for Power BI cache and local settings
+├── .gitignore                                      # Excludes Power BI local cache and user settings
 ├── README.md                                       # Project documentation
-├── HR_Analytics-4.csv                              # Source HR dataset
+├── HR_Analytics-4.csv                              # Source dataset
 │
-├── HR ANALYTICS DASHBOARD.pbip                     # Power BI Project definition file
-├── HR ANALYTICS DASHBOARD.pbix                     # Compiled standalone Power BI report file
+├── HR ANALYTICS DASHBOARD.pbip                     # Power BI Project root file
+├── HR ANALYTICS DASHBOARD.pbix                     # Compiled Power BI report binary
 │
-├── HR ANALYTICS DASHBOARD.Report/                  # Report layout and visual definitions (PBIR format)
-│   ├── definition.pbir                             # Binding pointer to semantic model
+├── HR ANALYTICS DASHBOARD.Report/                  # Report visuals and canvas definition (PBIR)
+│   ├── definition.pbir                             # Pointer linking report to semantic model
 │   └── definition/
-│       ├── report.json                             # Theme, global filters, and canvas settings
+│       ├── report.json                             # Theme, canvas, and report-level properties
 │       └── pages/
-│           ├── pages.json                          # Page hierarchy and active page mapping
-│           └── a168e05dc08419019b3c/               # "Page 1" visual configurations
-│               ├── page.json                       # Page layout specifications (1280x720)
-│               └── visuals/                        # Visual container JSON schemas for all 21 items
+│           ├── pages.json                          # Page metadata
+│           └── a168e05dc08419019b3c/               # Page 1 folder
+│               ├── page.json                       # Canvas layout dimensions (1280x720)
+│               └── visuals/                        # Visual container schemas for all 21 canvas items
 │
-├── HR ANALYTICS DASHBOARD.SemanticModel/           # Semantic model definitions (TMDL format)
-│   ├── definition.pbism                            # Model metadata settings
-│   ├── diagramLayout.json                          # Model relationship layout
+├── HR ANALYTICS DASHBOARD.SemanticModel/           # Semantic model definitions (TMDL)
+│   ├── definition.pbism                            # Model settings
+│   ├── diagramLayout.json                          # Diagram view coordinates
 │   └── definition/
-│       ├── model.tmdl                              # Global model configuration
+│       ├── model.tmdl                              # Model culture and global settings
 │       └── tables/
-│           └── HR_Analytics-4 (2).tmdl             # Schema, M query, column types, and DAX measures
+│           └── HR_Analytics-4 (2).tmdl             # Schema, M query, column properties, and DAX measures
 │
-├── assets/                                         # Project demonstration media
-│   ├── HR ANALYTICS DASHBOARD.png                  # High-resolution dashboard screenshot
-│   ├── HR ANALYTICS DASHBOARD.pdf                  # Exported static PDF report
-│   └── HR ANALYTICS DASHBOARD.mp4                  # Dynamic video walkthrough of dashboard interactions
+├── assets/                                         # Media assets
+│   ├── HR ANALYTICS DASHBOARD.png                  # Dashboard screenshot preview
+│   ├── HR ANALYTICS DASHBOARD.pdf                  # Exported PDF version of the dashboard
+│   └── HR ANALYTICS DASHBOARD.mp4                  # Recorded video demonstration
 │
-└── Icons/                                          # Custom visual icon assets
+└── Icons/                                          # Visual icon images used in KPI cards
     ├── icons8-age-64.png
     ├── icons8-checked-user-male-64.png
     ├── icons8-employees-64.png
@@ -225,56 +229,57 @@ HR-Analytics-PowerBI-Dashboard/
 ## 10. How to Run the Project
 
 ### Prerequisites
-- [Microsoft Power BI Desktop](https://powerbi.microsoft.com/desktop/) (version supporting Power BI Project `.pbip` / Fabric report formats).
+- [Microsoft Power BI Desktop](https://powerbi.microsoft.com/desktop/) (version supporting Power BI Project `.pbip` files).
 
-### Steps
+### Setup Instructions
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/HAITHM-ALAKHALI/HR-Analytics-PowerBI-Dashboard.git
    cd HR-Analytics-PowerBI-Dashboard
    ```
 
-2. **Open the Report:**
-   - Double-click `HR ANALYTICS DASHBOARD.pbip` (or `HR ANALYTICS DASHBOARD.pbix`) to launch Power BI Desktop.
+2. **Open the Project:**
+   - Double-click `HR ANALYTICS DASHBOARD.pbip` (or `HR ANALYTICS DASHBOARD.pbix`) to open the report in Power BI Desktop.
 
-3. **Configure the Data Source Path (if prompted):**
-   - In Power BI Desktop, navigate to **Home** > **Transform Data** > **Transform Data**.
-   - In Power Query Editor, select the table query `HR_Analytics-4 (2)` and select the **Source** step in the **Applied Steps** panel.
-   - Update the file path to point to your local path of `HR_Analytics-4.csv` within the cloned directory:
-     ```powerquery
-     = Csv.Document(File.Contents("<Your-Local-Path>\HR-Analytics-PowerBI-Dashboard\HR_Analytics-4.csv"), [Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None])
-     ```
-   - Click **Close & Apply**.
+3. **Configure the Data Source Path:**
+   - Because file paths in Power Query are absolute on initial import, update the data source location to match your local clone:
+     1. In Power BI Desktop, click **Home** > **Transform Data** > **Data Source Settings** (or edit the **Source** step in the Power Query Editor).
+     2. Update the file path to point to your local copy of `HR_Analytics-4.csv`:
+        ```powerquery
+        = Csv.Document(File.Contents("<Path-To-Your-Local-Repository>\HR_Analytics-4.csv"), [Delimiter=",", Columns=37, Encoding=65001, QuoteStyle=QuoteStyle.None])
+        ```
+     3. Click **Close & Apply** to refresh the dataset.
 
-4. **Interact with the Dashboard:**
-   - Use the **Age Group** buttons and **Department** panel to dynamically slice the visual data.
-
----
-
-## 11. Key Insights
-
-Based on verified data calculations within the model:
-
-1. **Young Professionals Experience Highest Attrition:**
-   - Employees aged **18–25** display an attrition rate of **37.6%**, more than double the company-wide average (16.3%). In contrast, mid-career professionals aged **36–45** maintain the highest stability with an attrition rate of **9.2%**.
-2. **Departmental Retention Discrepancies:**
-   - **Sales** exhibits the highest departmental turnover rate at **25.1%** (52 leavers out of 207 employees), closely followed by **Human Resources** at **23.1%** (9 leavers out of 39 employees) and **Administration** at **20.7%** (84 leavers out of 406 employees).
-   - **Operations**, despite being the largest department (512 employees), maintains the lowest attrition rate at **8.4%** (43 leavers).
-3. **High-Impact Roles:**
-   - **Laboratory Technicians** (59 leavers) and **Sales Executives** (56 leavers) represent the highest cumulative departure volumes across the organization, accounting for **49.8%** of all attrition events.
-4. **Early Tenure Vulnerability:**
-   - The attrition distribution indicates a heavy concentration of exits within the first 0–2 years of professional experience, indicating that early-career onboarding and career development are critical retention levers.
+4. **Explore the Dashboard:**
+   - Interact with the **Age Group** buttons and **Department** panel to view filtered values across all visuals.
 
 ---
 
-## 12. Project Limitations & Considerations
+## 11. Key Descriptive Observations
 
-- **Data Truncation during Cleaning:** Removing 61 rows with blank `YearsWithCurrManager` entries also dropped 8 historical attrition records and 53 active employee records.
-- **Identifier Granularity:** Full-row deduplication eliminated exact duplicate records, but 14 `EmpID`s appear twice due to non-key field differences, resulting in 1,417 rows for 1,403 distinct employee IDs.
-- **Metric Definitions:**
-  - The KPI card titled **"Avg Experience"** aggregates the `YearsatCompany` column (mean: 7.04 years of company tenure) rather than total professional experience (`TotalExperience(Years)`, mean: 11.30 years).
-  - The **"Attrition by Department"** Donut Chart illustrates raw departure volume per department rather than department-specific turnover rates.
-- **Model Architecture:** The current implementation uses a single denormalized flat table rather than a multi-table dimensional Star Schema.
+The dashboard calculations yield the following verified observations from the loaded data:
+
+1. **Age Cohort Distribution:**
+   - Within the `18-25` age category, the observed attrition rate is **37.6%** (44 departures out of 117 employees).
+   - The lowest within-bracket rate occurs in the `36-45` cohort at **9.2%** (41 departures out of 446 employees).
+2. **Departmental Distribution:**
+   - The highest departmental attrition rates in the dataset occur in **Sales** at **25.1%** (52 departures / 207 employees), **Human Resources** at **23.1%** (9 departures / 39 employees), and **Administration** at **20.7%** (84 departures / 406 employees).
+   - **Operations** accounts for the largest headcount in the dataset (512 employees) and records an attrition rate of **8.4%** (43 departures).
+3. **Job Role Departure Counts:**
+   - **Laboratory Technicians** (59 departures) and **Sales Executives** (56 departures) account for the highest individual departure headcounts, totaling **115 of the 231 recorded departures** (49.8%).
+4. **Experience Distribution:**
+   - The area chart distribution shows the highest concentration of departure counts among employees with **1 year of total experience** (40 departures), tapering down as total experience increases.
+
+---
+
+## 12. Project Limitations & Analytical Considerations
+
+- **Data Reduction During Cleaning:** Removing 61 records with blank `YearsWithCurrManager` values excluded 8 departure records and 53 active records from the dashboard population.
+- **Identifier Granularity:** Deduplication was performed across all 37 attributes; 14 `EmpID` identifiers appear twice due to differences in non-key fields, yielding 1,417 rows for 1,403 distinct employee IDs.
+- **Metric Scope:**
+  - The KPI card labeled **"Avg Experience"** aggregates the `YearsatCompany` column (mean: 7.04 years of company tenure) rather than total professional experience (`TotalExperience(Years)`, mean: 11.30 years).
+  - The **"Attrition by Department"** Donut Chart shows the proportion of total departures by department rather than department-specific turnover rates.
+- **Data Model Architecture:** The report imports a single denormalized flat table rather than a multi-table dimensional Star Schema.
 
 ---
 
